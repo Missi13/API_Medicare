@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.medicare.config.Constants;
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -12,6 +13,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import com.medicare.domain.enumeration.GenderType;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -56,6 +59,16 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
     @Size(min = 5, max = 254)
     @Column(length = 254, unique = true)
     private String email;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "date_of_birth")
+    private LocalDate dateOfBirth;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private GenderType gender;
 
     @NotNull
     @Column(nullable = false)
@@ -142,6 +155,30 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public LocalDate getDateOfBirth() {
+            return dateOfBirth;
+        }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderType gender) {
+        this.gender = gender;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -223,6 +260,9 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", phoneNumber='" + phoneNumber + '\'' +
+            ", dateOfBirth='" + dateOfBirth + '\'' +
+            ", gender='" + gender + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +

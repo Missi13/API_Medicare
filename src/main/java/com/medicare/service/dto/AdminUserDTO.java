@@ -3,8 +3,11 @@ package com.medicare.service.dto;
 import com.medicare.config.Constants;
 import com.medicare.domain.Authority;
 import com.medicare.domain.User;
+import com.medicare.domain.enumeration.GenderType;
+
 import java.io.Serializable;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.constraints.*;
@@ -32,6 +35,12 @@ public class AdminUserDTO implements Serializable {
     @Email
     @Size(min = 5, max = 254)
     private String email;
+
+    private String phoneNumber;
+
+    private LocalDate dateOfBirth;
+
+    private GenderType gender;
 
     @Size(max = 256)
     private String imageUrl;
@@ -111,6 +120,30 @@ public class AdminUserDTO implements Serializable {
         this.email = email;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public GenderType getGender() {
+        return gender;
+    }
+
+    public void setGender(GenderType gender) {
+        this.gender = gender;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -183,6 +216,9 @@ public class AdminUserDTO implements Serializable {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", phoneNumber='" + phoneNumber + '\'' +
+            ", dateOfBirth='" + dateOfBirth + '\'' +
+            ", gender='" + gender + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated=" + activated +
             ", langKey='" + langKey + '\'' +

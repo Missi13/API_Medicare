@@ -10,9 +10,13 @@ import com.medicare.security.SecurityUtils;
 import com.medicare.service.dto.AdminUserDTO;
 import com.medicare.service.dto.UserDTO;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import com.medicare.web.rest.errors.BadRequestAlertException;
+import com.medicare.web.rest.errors.ErrorConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.CacheManager;
@@ -120,6 +124,10 @@ public class UserService {
         if (userDTO.getEmail() != null) {
             newUser.setEmail(userDTO.getEmail().toLowerCase());
         }
+        newUser.setPhoneNumber(userDTO.getPhoneNumber());
+        checkDateOfBirth(userDTO.getDateOfBirth());
+        newUser.setDateOfBirth(userDTO.getDateOfBirth());
+        newUser.setGender(userDTO.getGender());
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
@@ -133,6 +141,12 @@ public class UserService {
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
+    }
+
+    private void checkDateOfBirth(LocalDate dateOfBirth) {
+        if((dateOfBirth.isAfter(LocalDate.now())) && !dateOfBirth.equals(null)){
+            throw new BadRequestAlertException("invalid date", "", ErrorConstants.INVALID_DATE);
+        }
     }
 
     private boolean removeNonActivatedUser(User existingUser) {
