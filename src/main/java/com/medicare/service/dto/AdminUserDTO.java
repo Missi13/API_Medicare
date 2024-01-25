@@ -72,6 +72,7 @@ public class AdminUserDTO implements Serializable {
         this.email = user.getEmail();
         this.dateOfBirth = user.getDateOfBirth();
         this.phoneNumber = user.getPhoneNumber();
+        this.gender = user.getGender();
         this.activated = user.isActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();

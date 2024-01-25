@@ -52,7 +52,7 @@ public class UserMapper {
             user.setEmail(userDTO.getEmail());
             user.setPhoneNumber(userDTO.getPhoneNumber());
             user.setDateOfBirth(userDTO.getDateOfBirth());
-            
+            user.setGender(userDTO.getGender());
             user.setImageUrl(userDTO.getImageUrl());
             user.setActivated(userDTO.isActivated());
             user.setLangKey(userDTO.getLangKey());
