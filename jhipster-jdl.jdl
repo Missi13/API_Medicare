@@ -1,0 +1,32 @@
+
+enum GenderType {
+	HOMME, FEMME
+}
+
+entity Patient {
+	firstName String
+	lastName String
+	dateOfBairth LocalDate
+	gender Gender
+	phoneNumber String
+}
+
+entity User {
+
+}
+
+
+
+
+relationship ManyToOne {
+	Patient{user} to User
+}
+
+
+
+// Set pagination options
+
+
+// Use Data Transfer Objects (DTO)
+dto * with mapstruct
+
