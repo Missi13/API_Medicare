@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.medicare.domain.enumeration.GenderType;
+import com.medicare.domain.enumeration.Gender;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -68,7 +68,7 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
-    private GenderType gender;
+    private Gender gender;
 
     @NotNull
     @Column(nullable = false)
@@ -171,11 +171,11 @@ public class User extends AbstractAuditingEntity<Long> implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public GenderType getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(GenderType gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 

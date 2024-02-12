@@ -1,5 +1,5 @@
 package com.medicare.domain.enumeration;
 
-public enum GenderType {
+public enum Gender {
     HOMME, FEMME
 }

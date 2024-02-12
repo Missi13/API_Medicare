@@ -3,7 +3,7 @@ package com.medicare.service.dto;
 import com.medicare.config.Constants;
 import com.medicare.domain.Authority;
 import com.medicare.domain.User;
-import com.medicare.domain.enumeration.GenderType;
+import com.medicare.domain.enumeration.Gender;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -40,7 +40,7 @@ public class AdminUserDTO implements Serializable {
 
     private LocalDate dateOfBirth;
 
-    private GenderType gender;
+    private Gender gender;
 
     @Size(max = 256)
     private String imageUrl;
@@ -139,11 +139,11 @@ public class AdminUserDTO implements Serializable {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public GenderType getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(GenderType gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 
