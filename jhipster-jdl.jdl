@@ -1,18 +1,14 @@
 
-enum GenderType {
+enum Gender {
 	HOMME, FEMME
 }
 
 entity Patient {
 	firstName String
 	lastName String
-	dateOfBairth LocalDate
+	dateOfBirth LocalDate
 	gender Gender
 	phoneNumber String
-}
-
-entity User {
-
 }
 
 
