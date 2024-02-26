@@ -23,7 +23,7 @@ public class PatientDTO implements Serializable {
 
     private String phoneNumber;
 
-    private UserDTO user;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -73,12 +73,12 @@ public class PatientDTO implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public UserDTO getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserDTO user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -112,7 +112,7 @@ public class PatientDTO implements Serializable {
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", gender='" + getGender() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
-            ", user=" + getUser() +
+            ", userId=" + getUserId() +
             "}";
     }
 }

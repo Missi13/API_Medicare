@@ -20,9 +20,8 @@ relationship ManyToOne {
 
 
 
-// Set pagination options
 
 
-// Use Data Transfer Objects (DTO)
 dto * with mapstruct
-
+service * with serviceClass
+paginate * with pagination

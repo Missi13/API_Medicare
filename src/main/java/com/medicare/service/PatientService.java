@@ -4,12 +4,11 @@ import com.medicare.domain.Patient;
 import com.medicare.repository.PatientRepository;
 import com.medicare.service.dto.PatientDTO;
 import com.medicare.service.mapper.PatientMapper;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,12 +79,13 @@ public class PatientService {
     /**
      * Get all the patients.
      *
+     * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
-    public List<PatientDTO> findAll() {
+    public Page<PatientDTO> findAll(Pageable pageable) {
         log.debug("Request to get all Patients");
-        return patientRepository.findAll().stream().map(patientMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return patientRepository.findAll(pageable).map(patientMapper::toDto);
     }
 
     /**
