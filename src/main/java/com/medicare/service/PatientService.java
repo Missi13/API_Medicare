@@ -107,6 +107,22 @@ public class PatientService {
     }
 
     /**
+     * Get all the patients.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<PatientDTO> findByUserIsCurrentUser(Pageable pageable) {
+        log.debug("Request to get all Patients by CurrentUser");
+        return patientRepository.findByUserIsCurrentUser(pageable).map(patientMapper::toDto);
+
+
+
+
+    }
+
+    /**
      * Get one patient by id.
      *
      * @param id the id of the entity.

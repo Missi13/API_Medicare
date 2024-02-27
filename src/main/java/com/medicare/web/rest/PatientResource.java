@@ -142,10 +142,24 @@ public class PatientResource {
      * @param pageable the pagination information.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of patients in body.
      */
-    @GetMapping("/patients")
+    //@GetMapping("/patients")
     public ResponseEntity<List<PatientDTO>> getAllPatients(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Patients");
         Page<PatientDTO> page = patientService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * {@code GET  /patients} : get all the patients by CurrentUser.
+     *
+     * @param pageable the pagination information.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of patients in body.
+     */
+    @GetMapping("/patients")
+    public ResponseEntity<List<PatientDTO>> getAllPatientsByCurrentUser(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
+        log.debug("REST request to get a page of Patients By CurrentUser");
+        Page<PatientDTO> page = patientService.findByUserIsCurrentUser(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
