@@ -1,10 +1,17 @@
 package com.medicare.service;
 
 import com.medicare.domain.Patient;
+import com.medicare.domain.User;
 import com.medicare.repository.PatientRepository;
+import com.medicare.repository.UserRepository;
+import com.medicare.security.SecurityUtils;
 import com.medicare.service.dto.PatientDTO;
+import com.medicare.service.dto.UserDTO;
 import com.medicare.service.mapper.PatientMapper;
 import java.util.Optional;
+
+import com.medicare.web.rest.errors.BadRequestAlertException;
+import com.medicare.web.rest.errors.ErrorConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,11 +29,13 @@ public class PatientService {
     private final Logger log = LoggerFactory.getLogger(PatientService.class);
 
     private final PatientRepository patientRepository;
+    private final UserRepository userRepository;
 
     private final PatientMapper patientMapper;
 
-    public PatientService(PatientRepository patientRepository, PatientMapper patientMapper) {
+    public PatientService(PatientRepository patientRepository, UserRepository userRepository, PatientMapper patientMapper) {
         this.patientRepository = patientRepository;
+        this.userRepository = userRepository;
         this.patientMapper = patientMapper;
     }
 
@@ -38,9 +47,18 @@ public class PatientService {
      */
     public PatientDTO save(PatientDTO patientDTO) {
         log.debug("Request to save Patient : {}", patientDTO);
-        Patient patient = patientMapper.toEntity(patientDTO);
-        patient = patientRepository.save(patient);
-        return patientMapper.toDto(patient);
+
+        Optional<String> currentUserLogin = SecurityUtils.getCurrentUserLogin();
+        if (currentUserLogin != null){
+            User currentUser = userRepository.findUserByLogin(currentUserLogin);
+            Patient patient = patientMapper.toEntity(patientDTO);
+            patient.setUser(currentUser);
+            patient = patientRepository.save(patient);
+            return patientMapper.toDto(patient);
+        } else {
+            throw new BadRequestAlertException("invalid date", "", ErrorConstants.INVALID_DATE);
+        }
+
     }
 
     /**

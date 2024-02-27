@@ -14,6 +14,7 @@ public final class ErrorConstants {
     public static final URI LOGIN_ALREADY_USED_TYPE = URI.create(PROBLEM_BASE_URL + "/login-already-used");
 
     public static final String INVALID_DATE = "E001";
+    public static final String NOT_AUTHENTICATED_USER = "002";
 
     private ErrorConstants() {}
 }
