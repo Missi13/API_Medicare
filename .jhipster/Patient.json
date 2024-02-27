@@ -25,6 +25,10 @@
     {
       "fieldName": "phoneNumber",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
     }
   ],
   "fluentMethods": true,

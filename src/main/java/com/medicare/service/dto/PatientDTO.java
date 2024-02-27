@@ -23,6 +23,8 @@ public class PatientDTO implements Serializable {
 
     private String phoneNumber;
 
+    private String email;
+
     private Long userId;
 
     public Long getId() {
@@ -73,6 +75,14 @@ public class PatientDTO implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public Long getUserId() {
         return userId;
     }
@@ -112,6 +122,7 @@ public class PatientDTO implements Serializable {
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", gender='" + getGender() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
+            ", email='" + getEmail() + "'" +
             ", userId=" + getUserId() +
             "}";
     }

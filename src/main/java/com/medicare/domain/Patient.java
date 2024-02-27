@@ -40,6 +40,9 @@ public class Patient implements Serializable {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(name = "email")
+    private String email;
+
     @ManyToOne
     private User user;
 
@@ -123,6 +126,19 @@ public class Patient implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getEmail() {
+        return this.email;
+    }
+
+    public Patient email(String email) {
+        this.setEmail(email);
+        return this;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public User getUser() {
         return this.user;
     }
@@ -165,6 +181,7 @@ public class Patient implements Serializable {
             ", dateOfBirth='" + getDateOfBirth() + "'" +
             ", gender='" + getGender() + "'" +
             ", phoneNumber='" + getPhoneNumber() + "'" +
+            ", email='" + getEmail() + "'" +
             "}";
     }
 }

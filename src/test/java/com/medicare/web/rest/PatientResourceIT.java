@@ -49,6 +49,9 @@ class PatientResourceIT {
     private static final String DEFAULT_PHONE_NUMBER = "AAAAAAAAAA";
     private static final String UPDATED_PHONE_NUMBER = "BBBBBBBBBB";
 
+    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
+    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
+
     private static final String ENTITY_API_URL = "/api/patients";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -81,7 +84,8 @@ class PatientResourceIT {
             .lastName(DEFAULT_LAST_NAME)
             .dateOfBirth(DEFAULT_DATE_OF_BIRTH)
             .gender(DEFAULT_GENDER)
-            .phoneNumber(DEFAULT_PHONE_NUMBER);
+            .phoneNumber(DEFAULT_PHONE_NUMBER)
+            .email(DEFAULT_EMAIL);
         return patient;
     }
 
@@ -97,7 +101,8 @@ class PatientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
             .gender(UPDATED_GENDER)
-            .phoneNumber(UPDATED_PHONE_NUMBER);
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .email(UPDATED_EMAIL);
         return patient;
     }
 
@@ -125,6 +130,7 @@ class PatientResourceIT {
         assertThat(testPatient.getDateOfBirth()).isEqualTo(DEFAULT_DATE_OF_BIRTH);
         assertThat(testPatient.getGender()).isEqualTo(DEFAULT_GENDER);
         assertThat(testPatient.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
+        assertThat(testPatient.getEmail()).isEqualTo(DEFAULT_EMAIL);
     }
 
     @Test
@@ -162,7 +168,8 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].dateOfBirth").value(hasItem(DEFAULT_DATE_OF_BIRTH.toString())))
             .andExpect(jsonPath("$.[*].gender").value(hasItem(DEFAULT_GENDER.toString())))
-            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)));
+            .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
+            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)));
     }
 
     @Test
@@ -181,7 +188,8 @@ class PatientResourceIT {
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.dateOfBirth").value(DEFAULT_DATE_OF_BIRTH.toString()))
             .andExpect(jsonPath("$.gender").value(DEFAULT_GENDER.toString()))
-            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER));
+            .andExpect(jsonPath("$.phoneNumber").value(DEFAULT_PHONE_NUMBER))
+            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL));
     }
 
     @Test
@@ -208,7 +216,8 @@ class PatientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
             .gender(UPDATED_GENDER)
-            .phoneNumber(UPDATED_PHONE_NUMBER);
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .email(UPDATED_EMAIL);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc
@@ -228,6 +237,7 @@ class PatientResourceIT {
         assertThat(testPatient.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testPatient.getGender()).isEqualTo(UPDATED_GENDER);
         assertThat(testPatient.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testPatient.getEmail()).isEqualTo(UPDATED_EMAIL);
     }
 
     @Test
@@ -311,7 +321,8 @@ class PatientResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
-            .gender(UPDATED_GENDER);
+            .gender(UPDATED_GENDER)
+            .email(UPDATED_EMAIL);
 
         restPatientMockMvc
             .perform(
@@ -330,6 +341,7 @@ class PatientResourceIT {
         assertThat(testPatient.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testPatient.getGender()).isEqualTo(UPDATED_GENDER);
         assertThat(testPatient.getPhoneNumber()).isEqualTo(DEFAULT_PHONE_NUMBER);
+        assertThat(testPatient.getEmail()).isEqualTo(UPDATED_EMAIL);
     }
 
     @Test
@@ -349,7 +361,8 @@ class PatientResourceIT {
             .lastName(UPDATED_LAST_NAME)
             .dateOfBirth(UPDATED_DATE_OF_BIRTH)
             .gender(UPDATED_GENDER)
-            .phoneNumber(UPDATED_PHONE_NUMBER);
+            .phoneNumber(UPDATED_PHONE_NUMBER)
+            .email(UPDATED_EMAIL);
 
         restPatientMockMvc
             .perform(
@@ -368,6 +381,7 @@ class PatientResourceIT {
         assertThat(testPatient.getDateOfBirth()).isEqualTo(UPDATED_DATE_OF_BIRTH);
         assertThat(testPatient.getGender()).isEqualTo(UPDATED_GENDER);
         assertThat(testPatient.getPhoneNumber()).isEqualTo(UPDATED_PHONE_NUMBER);
+        assertThat(testPatient.getEmail()).isEqualTo(UPDATED_EMAIL);
     }
 
     @Test

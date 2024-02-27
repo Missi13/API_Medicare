@@ -9,6 +9,7 @@ entity Patient {
 	dateOfBirth LocalDate
 	gender Gender
 	phoneNumber String
+	email String
 }
 
 
