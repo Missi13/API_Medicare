@@ -2,8 +2,13 @@ package com.medicare.security.jwt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.medicare.domain.User;
+import com.medicare.domain.enumeration.Gender;
 import com.medicare.management.SecurityMetersService;
+import com.medicare.repository.UserRepository;
 import com.medicare.security.AuthoritiesConstants;
+import com.medicare.service.dto.AdminUserDTO;
+import com.medicare.service.mapper.UserMapper;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
@@ -23,6 +28,7 @@ import tech.jhipster.config.JHipsterProperties;
 class JWTFilterTest {
 
     private TokenProvider tokenProvider;
+    private User user;
 
     private JWTFilter jwtFilter;
 
@@ -40,6 +46,14 @@ class JWTFilterTest {
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", 60000);
         jwtFilter = new JWTFilter(tokenProvider);
         SecurityContextHolder.getContext().setAuthentication(null);
+
+        user.setId(0001L);
+        user.setLogin("Missi");
+        user.setFirstName("Micipsa");
+        user.setLastName("Adel");
+        user.setEmail("missi.adel@gmail.com");
+        user.setGender(Gender.HOMME);
+        user.setPhoneNumber("0556142261");
     }
 
     @Test
@@ -49,7 +63,7 @@ class JWTFilterTest {
             "test-password",
             Collections.singletonList(new SimpleGrantedAuthority(AuthoritiesConstants.USER))
         );
-        String jwt = tokenProvider.createToken(authentication, false);
+        String jwt = tokenProvider.createToken(authentication, user, false);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader(JWTFilter.AUTHORIZATION_HEADER, "Bearer " + jwt);
         request.setRequestURI("/api/test");
@@ -104,7 +118,7 @@ class JWTFilterTest {
             "test-password",
             Collections.singletonList(new SimpleGrantedAuthority(AuthoritiesConstants.USER))
         );
-        String jwt = tokenProvider.createToken(authentication, false);
+        String jwt = tokenProvider.createToken(authentication, user, false);
         MockHttpServletRequest request = new MockHttpServletRequest();
         request.addHeader(JWTFilter.AUTHORIZATION_HEADER, "Basic " + jwt);
         request.setRequestURI("/api/test");

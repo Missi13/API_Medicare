@@ -2,8 +2,13 @@ package com.medicare.security.jwt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.medicare.domain.User;
+import com.medicare.domain.enumeration.Gender;
 import com.medicare.management.SecurityMetersService;
+import com.medicare.repository.UserRepository;
 import com.medicare.security.AuthoritiesConstants;
+import com.medicare.service.dto.AdminUserDTO;
+import com.medicare.service.mapper.UserMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -27,6 +32,7 @@ class TokenProviderTest {
 
     private Key key;
     private TokenProvider tokenProvider;
+    private User user;
 
     @BeforeEach
     public void setup() {
@@ -41,6 +47,14 @@ class TokenProviderTest {
 
         ReflectionTestUtils.setField(tokenProvider, "key", key);
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", ONE_MINUTE);
+
+        user.setId(0001L);
+        user.setLogin("Missi");
+        user.setFirstName("Micipsa");
+        user.setLastName("Adel");
+        user.setEmail("missi.adel@gmail.com");
+        user.setGender(Gender.HOMME);
+        user.setPhoneNumber("0556142261");
     }
 
     @Test
@@ -53,7 +67,7 @@ class TokenProviderTest {
     @Test
     void testReturnFalseWhenJWTisMalformed() {
         Authentication authentication = createAuthentication();
-        String token = tokenProvider.createToken(authentication, false);
+        String token = tokenProvider.createToken(authentication, user,false);
         String invalidToken = token.substring(1);
         boolean isTokenValid = tokenProvider.validateToken(invalidToken);
 
@@ -65,7 +79,7 @@ class TokenProviderTest {
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", -ONE_MINUTE);
 
         Authentication authentication = createAuthentication();
-        String token = tokenProvider.createToken(authentication, false);
+        String token = tokenProvider.createToken(authentication, user, false);
 
         boolean isTokenValid = tokenProvider.validateToken(token);
 

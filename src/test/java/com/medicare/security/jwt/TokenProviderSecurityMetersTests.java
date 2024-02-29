@@ -2,8 +2,13 @@ package com.medicare.security.jwt;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.medicare.domain.User;
+import com.medicare.domain.enumeration.Gender;
 import com.medicare.management.SecurityMetersService;
+import com.medicare.repository.UserRepository;
 import com.medicare.security.AuthoritiesConstants;
+import com.medicare.service.dto.AdminUserDTO;
+import com.medicare.service.mapper.UserMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -32,6 +37,7 @@ class TokenProviderSecurityMetersTests {
     private MeterRegistry meterRegistry;
 
     private TokenProvider tokenProvider;
+    private User user;
 
     @BeforeEach
     public void setup() {
@@ -48,6 +54,14 @@ class TokenProviderSecurityMetersTests {
 
         ReflectionTestUtils.setField(tokenProvider, "key", key);
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", ONE_MINUTE);
+
+        user.setId(0001L);
+        user.setLogin("Missi");
+        user.setFirstName("Micipsa");
+        user.setLastName("Adel");
+        user.setEmail("missi.adel@gmail.com");
+        user.setGender(Gender.HOMME);
+        user.setPhoneNumber("0556142261");
     }
 
     @Test
@@ -110,7 +124,7 @@ class TokenProviderSecurityMetersTests {
     private String createValidToken() {
         Authentication authentication = createAuthentication();
 
-        return tokenProvider.createToken(authentication, false);
+        return tokenProvider.createToken(authentication, user, false);
     }
 
     private String createExpiredToken() {
@@ -118,7 +132,7 @@ class TokenProviderSecurityMetersTests {
 
         Authentication authentication = createAuthentication();
 
-        return tokenProvider.createToken(authentication, false);
+        return tokenProvider.createToken(authentication, user, false);
     }
 
     private Authentication createAuthentication() {
